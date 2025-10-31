@@ -370,4 +370,112 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+  // Функция создания частиц для карточек
+  function createCardParticles(clientX, clientY, type) {
+    const particleCount = type === "fact" ? 25 : 20;
+    const sizeRange = type === "fact" ? [4, 12] : [3, 8];
+
+    // Разные цветовые палитры для фактов и друзей
+    const colorPalettes = {
+      fact: [
+        "rgba(106, 17, 203, 0.9)", // Фиолетовый
+        "rgba(37, 117, 252, 0.9)", // Синий
+        "rgba(147, 51, 234, 0.9)", // Яркий фиолетовый
+        "rgba(59, 130, 246, 0.9)", // Яркий синий
+        "rgba(168, 85, 247, 0.9)", // Светлый фиолетовый
+      ],
+      friend: [
+        "rgba(106, 17, 203, 0.9)", // Фиолетовый
+        "rgba(37, 117, 252, 0.9)", // Синий
+        "rgba(147, 51, 234, 0.9)", // Яркий фиолетовый
+        "rgba(59, 130, 246, 0.9)", // Яркий синий
+        "rgba(168, 85, 247, 0.9)", // Светлый фиолетовый
+      ],
+    };
+
+    const colors = colorPalettes[type];
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement("div");
+      particle.className = `${type}-particle`;
+
+      // Случайный размер частицы
+      const size = Math.random() * (sizeRange[1] - sizeRange[0]) + sizeRange[0];
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+
+      // Случайное направление и расстояние
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 100 + 50;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance;
+
+      particle.style.setProperty("--tx", `${tx}px`);
+      particle.style.setProperty("--ty", `${ty}px`);
+
+      // Позиционирование
+      particle.style.left = `${clientX - size / 2}px`;
+      particle.style.top = `${clientY - size / 2}px`;
+
+      // Случайный цвет
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.background = randomColor;
+
+      // Разная форма
+      if (Math.random() > 0.7) {
+        particle.style.borderRadius = "30%";
+      } else if (Math.random() > 0.5) {
+        particle.style.borderRadius = "10px";
+      }
+
+      // Случайная задержка и продолжительность анимации
+      const delay = Math.random() * 0.4;
+      const duration = 1 + Math.random() * 0.5;
+      particle.style.animationDelay = `${delay}s`;
+      particle.style.animationDuration = `${duration}s`;
+
+      document.body.appendChild(particle);
+
+      // Удаляем частицу после анимации
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.parentNode.removeChild(particle);
+        }
+      }, (duration + delay) * 1000);
+    }
+  }
+
+  // Добавляем обработчики для карточек фактов
+  const factCards = document.querySelectorAll(".fact-card");
+  factCards.forEach((card) => {
+    card.addEventListener("click", function (e) {
+      createCardParticles(e.clientX, e.clientY, "fact");
+
+      // Дополнительный визуальный эффект
+      
+    });
+  });
+
+  // Добавляем обработчики для карточек друзей
+  const friendCards = document.querySelectorAll(".friend-card");
+  friendCards.forEach((card) => {
+    card.addEventListener("click", function (e) {
+      createCardParticles(e.clientX, e.clientY, "friend");
+
+      // Дополнительный визуальный эффект
+      
+    });
+  });
+
+  // Добавляем обработчики для изображений друзей (отдельный эффект)
+  const friendImages = document.querySelectorAll(".friend-image");
+  friendImages.forEach((image) => {
+    image.addEventListener("click", function (e) {
+      e.stopPropagation(); // Предотвращаем срабатывание родительского обработчика
+      const rect = this.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      createCardParticles(centerX, centerY, "friend");
+    });
+  });
 });
