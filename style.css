@@ -269,6 +269,19 @@ body::before {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
+     position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.fact-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: card-particle-float 1.5s ease-out forwards;
+    z-index: 10000;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
 }
 
 /* Эффект свечения при наведении */
@@ -317,6 +330,11 @@ body::before {
     line-height: 1.6;
     font-size: 1.1rem;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.fact-card:active {
+    transform: translateY(-8px) scale(0.98);
+    transition: transform 0.1s ease;
 }
 
 /* Gallery Section */
@@ -572,6 +590,24 @@ body::before {
     position: relative;
     overflow: hidden;
     text-align: center;
+     position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.friend-card:active {
+    transform: translateY(-8px) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.friend-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: card-particle-float 1.5s ease-out forwards;
+    z-index: 10000;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
 }
 
 /* Эффект свечения при наведении */
@@ -650,6 +686,18 @@ body::before {
     font-size: 1.1rem;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
+
+@keyframes card-particle-float {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0) rotate(720deg);
+        opacity: 0;
+    }
+}
+
 /* Modal */
 .modal {
     display: none;
