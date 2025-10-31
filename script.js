@@ -295,11 +295,11 @@ document.addEventListener("DOMContentLoaded", function () {
     quotes[currentQuoteIndex].classList.add("active");
   }
   // Автоматическая смена цитат каждые 10 секунд
-  setInterval(() => {
-    quotes[currentQuoteIndex].classList.remove("active");
-    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-    quotes[currentQuoteIndex].classList.add("active");
-  }, 10000);
+  // setInterval(() => {
+  //   quotes[currentQuoteIndex].classList.remove("active");
+  //   currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+  //   quotes[currentQuoteIndex].classList.add("active");
+  // }, 10000);
 
   // Добавьте в конец файла script.js
   // Плавный скролл к основному контенту
@@ -479,3 +479,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
